@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    <style>
+        canvas {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <label for="sizeSlider">Taille des mini-cubes</label>
+        <input type="range" id="sizeSlider" min="5" max="50" value="20">
+    </div>
+    <div>
+        <label for="spacingSlider">Espacement entre les mini-cubes</label>
+        <input type="range" id="spacingSlider" min="5" max="50" value="10">
+    </div>
+    <div>
+        <label for="rotationSpeedSlider">Vitesse de rotation</label>
+        <input type="range" id="rotationSpeedSlider" min="0" max="0.1" step="0.001" value="0.02">
+    </div>
+
+    <script>
+        let sizeSlider, spacingSlider, rotationSpeedSlider;
+        let cubeSize, spacing, rotationSpeed;
+
+        function setup() {
+            createCanvas(400, 400, WEBGL);
+            cubeSize = 20;
+            spacing = 10;
+            rotationSpeed = 0.02;
+
+            sizeSlider = select("#sizeSlider");
+            spacingSlider = select("#spacingSlider");
+            rotationSpeedSlider = select("#rotationSpeedSlider");
+
+            sizeSlider.input(updateSize);
+            spacingSlider.input(updateSpacing);
+            rotationSpeedSlider.input(updateRotationSpeed);
+        }
+
+        function updateSize() {
+            cubeSize = sizeSlider.value();
+        }
+
+        function updateSpacing() {
+            spacing = spacingSlider.value();
+        }
+
+        function updateRotationSpeed() {
+            rotationSpeed = rotationSpeedSlider.value();
+        }
+
+        function draw() {
+            background(220);
+            rotateX(frameCount * rotationSpeed);
+            rotateY(frameCount * rotationSpeed);
+
+            for (let x = -100; x <= 100; x += spacing) {
+                for (let y = -100; y <= 100; y += spacing) {
+                    for (let z = -100; z <= 100; z += spacing) {
+                        push();
+                        translate(x, y, z);
+                        fill(random(255), random(255), random(255), 200);
+                        stroke(0);
+                        strokeWeight(2);
+                        box(cubeSize);
+                        pop();
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>

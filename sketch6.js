@@ -29,7 +29,7 @@ function draw() {
   let prevY = 0;
   let prevZ = 0;
 
-  for (let a = 0; a < 380; a += 6) {
+  for (let a = 0; a < 360; a += 6) {
     let xoff = cos(radians(a)) * 100;
     let yoff = sin(radians(a)) * 100;
     let zoff = frameCount * 0.02;
@@ -60,7 +60,7 @@ function draw() {
 }
 
 function deformLine(x1, y1, z1, x2, y2, z2) {
-  let detail = 10;
+  let detail = 5;
   beginShape();
   for (let i = 0; i <= detail; i++) {
 
